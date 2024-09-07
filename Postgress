@@ -1,0 +1,90 @@
+Once connected, please create a Database
+
+sudo -u postgres psql
+CREATE DATABASE springbootdb;
+\conninfo
+Check if the database was created:
+\l
+Exit psql:
+\q
+
+
+Ingest the Data into Postgresql using stored procedure
+
+-- Create a function to insert employees
+CREATE OR REPLACE FUNCTION insert_employees()
+RETURNS VOID AS $$
+DECLARE
+    i INT := 1;
+BEGIN
+    WHILE i <= 4000000 LOOP
+        INSERT INTO employees (first_name, last_name, email) 
+        VALUES (
+            CONCAT('sumanth', i), 
+            CONCAT('krishna', i), 
+            CONCAT('email', i, '@example.com')
+        );
+        i := i + 1;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Execute the function
+SELECT insert_employees();
+
+-- Verify the number of records inserted
+SELECT COUNT(*) FROM employees;
+
+ 
+Run the Procedure in PSQL from Query Editor
+
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100)
+);
+
+CREATE OR REPLACE FUNCTION InsertEmployees() RETURNS VOID AS $$
+DECLARE
+    i INT := 1000001;
+BEGIN
+    WHILE i <= 2000000 LOOP
+        INSERT INTO employees (first_name, last_name, email) 
+        VALUES (CONCAT('FirstName', i), CONCAT('LastName', i), CONCAT('email', i, '@example.com'));
+        i := i + 1;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+SELECT InsertEmployees();
+SELECT count(1) FROM employees;
+SELECT * FROM employees LIMIT 100;
+
+SIMULATE PERFORMANCE PROBLEMS
+
+
+-- Switch to the desired database
+\c springbootdb;
+
+-- Create an index on the first_name column
+CREATE INDEX idx_first_name ON employees(first_name);
+
+-- Verify the index creation
+SELECT indexname, indexdef FROM pg_indexes WHERE tablename = 'employees';
+
+-- Switch to the desired database
+\c springbootdb;
+
+-- Drop the index on the first_name column
+DROP INDEX idx_first_name;
+
+-- Verify the index has been dropped
+SELECT indexname, indexdef FROM pg_indexes WHERE tablename = 'employees';
+
+Connect to the Database:
+
+psql -U username -d springbootdb
+CREATE INDEX idx_first_name ON employees(first_name);
+SELECT indexname, indexdef FROM pg_indexes WHERE tablename = 'employees';
+DROP INDEX idx_first_name;
+SELECT indexname, indexdef FROM pg_indexes WHERE tablename = 'employees';
