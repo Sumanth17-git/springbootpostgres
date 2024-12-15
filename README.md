@@ -37,9 +37,12 @@ Check if the database was created:
 Exit psql:
 \q
 
-So , you will have Hostname :<externalVM IP> username :postgres  password: admin@123
 
-## 
+## Generate the test data
+you will have Hostname :<externalVM IP> username :postgres  password: admin@123
+Connect to psqladmin 
+
+SELECT * FROM employees LIMIT 100;
 
 kubectl apply -f deployment.yaml
 http://<ipaddress/9090/api/employees/
