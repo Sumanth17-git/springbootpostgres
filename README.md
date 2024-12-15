@@ -3,8 +3,6 @@
 This guide provides step-by-step instructions to set up PostgreSQL on a virtual machine (VM).
 
 ## Steps to Install and Manage PostgreSQL
-
-### 1. Update the Package List
 ```bash
 sudo su
 apt update
@@ -17,7 +15,6 @@ psql
 alter user postgres with password 'admin@123';
 show hba_file;
 \q
-
 vi /etc/postgresql/15/main/postgresql.conf
 listen_addresses = '*'
 #### Now edit the PostgreSQL access policy configuration file.
@@ -39,6 +36,10 @@ Check if the database was created:
 \l
 Exit psql:
 \q
+
+So , you will have Hostname :<externalVM IP> username :postgres  password: admin@123
+
+## 
 
 kubectl apply -f deployment.yaml
 http://<ipaddress/9090/api/employees/
