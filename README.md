@@ -44,3 +44,4 @@ kubectl apply -f deployment.yaml
 http://<ipaddress/9090/api/employees/
 
 docker run -d -p 9090:9090 sumanth17121988/creditcardservice:1
+
