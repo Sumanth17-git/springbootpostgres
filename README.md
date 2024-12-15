@@ -30,5 +30,17 @@ host  all             all             0.0.0.0/0            md5
 sudo systemctl restart postgresql.service
 sudo systemctl status postgresql.service
 
+### Once connected, please create a Database
+
+sudo -u postgres psql
+CREATE DATABASE springbootdb;
+\conninfo
+Check if the database was created:
+\l
+Exit psql:
+\q
+
+kubectl apply -f deployment.yaml
+http://<ipaddress/9090/api/employees/
 
 docker run -d -p 9090:9090 sumanth17121988/creditcardservice:1
