@@ -40,7 +40,9 @@ Exit psql:
 
 ## Generate the test data
 you will have Hostname :<externalVM IP> username :postgres  password: admin@123
-Connect to psqladmin 
+<img width="231" alt="image" src="https://github.com/user-attachments/assets/e703825c-1c3e-4c10-97a1-960be978224f" />
+
+
 
 SELECT * FROM employees LIMIT 100;
 
