@@ -41,11 +41,41 @@ Exit psql:
 ## Generate the test data
 you will have Hostname :<externalVM IP> username :postgres  password: admin@123
 <img width="231" alt="image" src="https://github.com/user-attachments/assets/e703825c-1c3e-4c10-97a1-960be978224f" />
+```bash
+CREATE TABLE employees (
+    id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    email VARCHAR(100)
+);
+Ingest the Data into Postgresql using stored procedure
 
+-- Create a function to insert employees
+CREATE OR REPLACE FUNCTION insert_employees()
+RETURNS VOID AS $$
+DECLARE
+    i INT := 1;
+BEGIN
+    WHILE i <= 4000000 LOOP
+        INSERT INTO employees (first_name, last_name, email) 
+        VALUES (
+            CONCAT('sumanth', i), 
+            CONCAT('krishna', i), 
+            CONCAT('email', i, '@example.com')
+        );
+        i := i + 1;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
 
+-- Execute the function
+SELECT insert_employees();
 
+-- Verify the number of records inserted
+SELECT COUNT(*) FROM employees;
 SELECT * FROM employees LIMIT 100;
-
+```
+Once data is generated  , run the build and run the application using java-jar or docker or kubernetes
 kubectl apply -f deployment.yaml
 http://<ipaddress/9090/api/employees/
 
