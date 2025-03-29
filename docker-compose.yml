@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin@123
+      POSTGRES_DB: springbootdb
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  springboot-app:
+    build: .
+    container_name: creditcard-service
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      SPRING_APPLICATION_NAME: creditcard_service
+      SERVER_PORT: 9090
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/springbootdb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: admin@123
+    ports:
+      - "9090:9090"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  pgdata:
