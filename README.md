@@ -108,3 +108,8 @@ kubectl exec -it postgres-0 -- printenv | grep POSTGRES
 POSTGRES_PASSWORD=admin@123
 POSTGRES_DB=springbootdb
 POSTGRES_USER=postgres
+
+kubectl get secret postgres-secret -o jsonpath='{.data.username}' | base64 -d
+kubectl get secret postgres-secret -o jsonpath='{.data.password}' | base64 -d
+
+psql -h 34.118.225.45 -U postgres -d springbootdb -p 5432
