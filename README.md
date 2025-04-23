@@ -102,3 +102,9 @@ Click COnfigure
 <img width="884" alt="image" src="https://github.com/user-attachments/assets/ac427a36-6136-4118-a431-b039d2300581" />
 
 
+If you are using configmap and secrets , you can check what values are passed
+kubectl exec -it postgres-0 -- printenv | grep POSTGRES
+
+POSTGRES_PASSWORD=admin@123
+POSTGRES_DB=springbootdb
+POSTGRES_USER=postgres
