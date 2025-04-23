@@ -48,8 +48,7 @@ CREATE TABLE employees (
     last_name VARCHAR(50),
     email VARCHAR(100)
 );
-Ingest the Data into Postgresql using stored procedure
-
+-- Ingest the Data into Postgresql using stored procedure
 -- Create a function to insert employees
 CREATE OR REPLACE FUNCTION insert_employees()
 RETURNS VOID AS $$
