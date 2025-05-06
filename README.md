@@ -74,6 +74,19 @@ SELECT insert_employees();
 SELECT COUNT(*) FROM employees;
 SELECT * FROM employees LIMIT 100;
 ```
+
+# Validate the connection
+## Pgadmin tool 
+<img width="423" alt="image" src="https://github.com/user-attachments/assets/b6a9180d-e351-4b43-a0ce-f3af77474897" />
+password: admin@123
+
+## remote VM machine
+sudo apt update
+sudo apt install postgresql-client -y
+PGPASSWORD='admin@123' psql -h 35.186.176.58 -p 5432 -U postgres -d postgres
+exit
+
+# Setup on Docker/Kubernetes
 Once data is generated  , run the build and run the application using java-jar or docker or kubernetes
 kubectl apply -f deployment.yaml
 http://<ipaddress/9090/api/employees/
